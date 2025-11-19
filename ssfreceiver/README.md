@@ -917,10 +917,4 @@ Note: Custom events must follow the SET event specification and should use uniqu
 Contributions to the project are welcome, including feature enhancements, bug fixes, and documentation improvements.
 
 
-### SSF API TESTING:
 
-```
-cd ssfreciever
-go run main.go
-
-```

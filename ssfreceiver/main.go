@@ -24,7 +24,7 @@ import (
 
 func main() {
 	// ---- config from env
-	transmitterWK := "https://api.cacab.ngrok.io/.well-known/ssf-configuration"
+	transmitterWK := "https:/<your-ngrok-tunnel>.well-known/ssf-configuration"
 	pushEndpoint := "http://localhost:8766/events"
 	bearerToken := "<your api token>"
 
