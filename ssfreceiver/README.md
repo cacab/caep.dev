@@ -95,7 +95,11 @@ type CustomAuth struct {
 func (a *CustomAuth) AddAuth(ctx context.Context, req *http.Request) error {
     // Custom auth logic
     req.Header.Set("Authorization", "Custom scheme-name")
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> upstream/main
     return nil
 }
 
@@ -293,7 +297,11 @@ func HandlePushedEvent(w http.ResponseWriter, r *http.Request) {
 
 func handleSessionRevoked(secEvent *token.SecEvent) {
 	log.Printf("Received session revoked event: %s", secEvent.ID)
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> upstream/main
 	if subjectPayload, err := secEvent.Subject.Payload(); err == nil {
 		log.Printf("Subject details: %+v", subjectPayload)
 	} else {
@@ -334,25 +342,44 @@ The `examples/` directory contains runnable examples demonstrating various aspec
 builder, err := builder.New(transmitterURL,
     // Delivery method options
     builder.WithPollDelivery(),  // or WithPushDelivery(endpoint)
+<<<<<<< HEAD
 
     // Authentication
     builder.WithAuth(auth.NewBearer("default-token")),
 
+=======
+
+    // Authentication
+    builder.WithAuth(auth.NewBearer("default-token")),
+
+>>>>>>> upstream/main
     // Event configuration
     builder.WithEventTypes([]event.EventType{
         caep.EventTypeSessionRevoked,
         caep.EventTypeTokenClaimsChange,
     }),
+<<<<<<< HEAD
 
     // Stream handling
     builder.WithExistingCheck(),  // Optional, checks for existing streams
     builder.WithDescription("Stream description"),  // Optional, adds stream description
 
+=======
+
+    // Stream handling
+    builder.WithExistingCheck(),  // Optional, checks for existing streams
+    builder.WithDescription("Stream description"),  // Optional, adds stream description
+
+>>>>>>> upstream/main
     // HTTP client configuration
     builder.WithHTTPClient(&http.Client{    // Optional, uses user-supplied http client
         Timeout: time.Second * 30,
     }),
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> upstream/main
     // Retry configuration
     builder.WithRetryConfig(config.RetryConfig{ // Optional, if not supplied, uses default retry config
         MaxRetries:        3,
@@ -368,7 +395,11 @@ builder, err := builder.New(transmitterURL,
             504: true, // Gateway Timeout
         },
     }),
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> upstream/main
     // Endpoint-specific headers
     builder.WithMetadataEndpointHeaders(map[string]string{  // Optional, adds additional headers or overrides headers for this endpoint
         "Custom-Metadata-Header": "value",
@@ -388,7 +419,11 @@ builder, err := builder.New(transmitterURL,
     builder.WithVerificationEndpointHeaders(map[string]string{  // Optional, adds additional headers or overrides headers for this endpoint
         "Custom-Verify-Header": "value",
     }),
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> upstream/main
     // Global headers for all endpoints
     builder.WithEndpointHeaders(map[string]string{  // Optional, adds additional headers or overrides headers for all endpoints
         "Global-Custom-Header": "value",
@@ -432,7 +467,11 @@ updatedConfig := &types.StreamConfigurationRequest{
     Description: "Updated configuration",
 }
 
+<<<<<<< HEAD
 newConfig, err := stream.UpdateConfiguration(ctx,
+=======
+newConfig, err := stream.UpdateConfiguration(ctx,
+>>>>>>> upstream/main
     updatedConfig,
     options.WithAuth(customAuth), // Optional, overrides stream's default auth for this request
     options.WithHeaders(map[string]string{ // Optional, adds additional headers or overrides headers for this request
@@ -455,7 +494,11 @@ if err != nil {
 }
 
 // Pause stream
+<<<<<<< HEAD
 err = stream.Pause(ctx,
+=======
+err = stream.Pause(ctx,
+>>>>>>> upstream/main
     options.WithStatusReason("System maintenance"), // Optional, specifies the reason for pausing the stream
     options.WithAuth(customAuth), // Optional, overrides stream's default auth for this request
     options.WithHeaders(map[string]string{  // Optional, adds additional headers or overrides headers for this request
@@ -536,7 +579,11 @@ for _, rawEvent := range events {
         // Handle error
         continue
     }
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> upstream/main
     // Handle the event
     switch parsedEvent.Event.Type() {
     case caep.EventTypeSessionRevoked:
@@ -552,7 +599,11 @@ for _, rawEvent := range events {
 ### Events Acknowledgment
 ```go
 // Acknowledge specific events with all available options
+<<<<<<< HEAD
 err := stream.Acknowledge(ctx,
+=======
+err := stream.Acknowledge(ctx,
+>>>>>>> upstream/main
     []string{"jti1", "jti2"},
     options.WithAuth(customAuth),   // Optional, overrides stream's default auth for this request
     options.WithHeaders(map[string]string{  // Optional, adds additional headers or overrides headers for this request
@@ -581,7 +632,11 @@ http.HandleFunc("/events", func(w http.ResponseWriter, r *http.Request) {
         http.Error(w, err.Error(), http.StatusBadRequest)
         return
     }
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> upstream/main
     // Handle the event based on type
     switch event.Type() {
     case caep.EventTypeSessionRevoked:
@@ -709,11 +764,19 @@ func (a *CustomAuth) AddAuth(ctx context.Context, req *http.Request) error {
     if req == nil {
         return fmt.Errorf("request cannot be nil")
     }
+<<<<<<< HEAD
 
     // Add your custom authorization logic
     req.Header.Set("X-API-Key", a.apiKey)
     // Add any other headers or auth-related modifications
 
+=======
+
+    // Add your custom authorization logic
+    req.Header.Set("X-API-Key", a.apiKey)
+    // Add any other headers or auth-related modifications
+
+>>>>>>> upstream/main
     return nil
 }
 
@@ -819,6 +882,7 @@ Configuration options for retry behavior:
 type RetryConfig struct {
     // MaxRetries is the maximum number of retry attempts (default: 3)
     MaxRetries int
+<<<<<<< HEAD
 
     // InitialBackoff is the initial delay between retry attempts (default: 1 second)
     InitialBackoff time.Duration
@@ -829,6 +893,18 @@ type RetryConfig struct {
     // BackoffMultiplier is the factor by which the backoff increases (default: 2.0)
     BackoffMultiplier float64
 
+=======
+
+    // InitialBackoff is the initial delay between retry attempts (default: 1 second)
+    InitialBackoff time.Duration
+
+    // MaxBackoff is the maximum delay between retry attempts (default: 30 seconds)
+    MaxBackoff time.Duration
+
+    // BackoffMultiplier is the factor by which the backoff increases (default: 2.0)
+    BackoffMultiplier float64
+
+>>>>>>> upstream/main
     // RetryableStatus is a map of HTTP status codes that should trigger a retry
     RetryableStatus map[int]bool  // Default: 408, 429, 500, 502, 503, 504
 }
@@ -914,7 +990,11 @@ Note: Custom events must follow the SET event specification and should use uniqu
 
 ## Contributing
 
+<<<<<<< HEAD
 Contributions to the project are welcome, including feature enhancements, bug fixes, and documentation improvements.
 
 
 
+=======
+Contributions to the project are welcome, including feature enhancements, bug fixes, and documentation improvements.
+>>>>>>> upstream/main
