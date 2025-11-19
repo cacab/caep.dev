@@ -12,3 +12,11 @@ Contains the original SSF receiver implementation. This has been superseded by t
 ## Contributing
 
 Contributions to the project are welcome, including feature enhancements, bug fixes, and documentation improvements.
+
+### SSF API TESTING:
+
+```
+cd ssfreciever
+go run main.go
+
+```
