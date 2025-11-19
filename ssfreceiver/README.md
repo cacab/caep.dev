@@ -575,11 +575,6 @@ http.HandleFunc("/events", func(w http.ResponseWriter, r *http.Request) {
         http.Error(w, err.Error(), http.StatusBadRequest)
         return
     }
-<<<<<<< HEAD
-
-=======
-
->>>>>>> upstream/main
     // Handle the event based on type
     switch event.Type() {
     case caep.EventTypeSessionRevoked:
