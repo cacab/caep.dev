@@ -764,19 +764,11 @@ func (a *CustomAuth) AddAuth(ctx context.Context, req *http.Request) error {
     if req == nil {
         return fmt.Errorf("request cannot be nil")
     }
-<<<<<<< HEAD
 
     // Add your custom authorization logic
     req.Header.Set("X-API-Key", a.apiKey)
     // Add any other headers or auth-related modifications
 
-=======
-
-    // Add your custom authorization logic
-    req.Header.Set("X-API-Key", a.apiKey)
-    // Add any other headers or auth-related modifications
-
->>>>>>> upstream/main
     return nil
 }
 
