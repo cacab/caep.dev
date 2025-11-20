@@ -44,7 +44,7 @@ func main() {
 		builder.WithPushDelivery(pushEndpoint),
 		builder.WithAuth(bearerAuth),
 		builder.WithEventTypes([]event.EventType{
-			event.EventType("device_trust.status_changed"),
+			caep.EventTypeDeviceComplianceChange,
 			ssf.EventTypeVerification,
 		}),
 		builder.WithExistingCheck(),
@@ -98,7 +98,7 @@ func HandlePushedEvent(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	body := strings.TrimSpace(string(raw))
-	log.Printf("RAW BODY: %q", body)
+	//log.Printf("RAW BODY: %q", body)
 
 	jwtStr, err := extractSecEventToken(body, r.Header.Get("Content-Type"))
 	if err != nil {
@@ -120,6 +120,8 @@ func HandlePushedEvent(w http.ResponseWriter, r *http.Request) {
 		handleVerification(secEvent)
 	case caep.EventTypeSessionRevoked:
 		handleSessionRevoked(secEvent)
+	case caep.EventTypeDeviceComplianceChange:
+		handleDeviceTrustStatusChanged(secEvent)
 	default:
 		log.Printf("Unhandled event type: %s", secEvent.Event.Type())
 	}
